@@ -298,8 +298,6 @@ public class BinaryTree {
         TreeNode n2 = new TreeNode(1);
         TreeNode n3 = new TreeNode(1);
 
-        HashSet
-
         n1.right = n2;
         n2.left = n3;
 
