@@ -69,24 +69,24 @@ public class Solution12 {
 
     // 顺时针旋转矩阵
     public static void roatateMartix(int[][] m) {
-        int x1 = 0;
-        int y1 = 0;
+        int a = 0;
+        int b = 0;
 
-        int x2 = m.length - 1;
-        int y2 = m[0].length - 1;
+        int c = m.length - 1;
+        int d = m[0].length - 1;
 
-        while (x1 < x2) {
-            process3(m, x1++, y1++, x2--, y2--);
+        while (a < c) {
+            process3(m, a++, b++, c--, d--);
         }
     }
 
-    private static void process3(int[][] m, int x1, int y1, int x2, int y2) {
-        for (int j = 0; j < x1 - x2; j++) {
-            int temp = m[x1][y1 + j];
-            m[x1][y1 + j] = m[x2 - j][y2];
-            m[x2 - j][y2] = m[x2][y2 - j];
-            m[x2][y2 - j] = m[x1 + j][y1];
-            m[x1 + j][y1] = temp;
+    private static void process3(int[][] m, int a, int b, int c, int d) {
+        for (int j = 0; j < a - c; j++) {
+            int temp = m[a][b + j];
+            m[a][b + j] = m[c - j][d];
+            m[c - j][d] = m[c][d - j];
+            m[c][d - j] = m[a + j][b];
+            m[a + j][b] = temp;
         }
 
     }
