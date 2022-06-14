@@ -101,6 +101,27 @@ public class Solution16 {
     }
 
 
+    // 141. 环形链表
+    public boolean hasCycle(ListNode head) {
+        if (head == null || head.next == null || head.next.next == null) {
+            return false;
+        }
+
+        ListNode p = head;
+        ListNode q = head.next.next;
+
+        while (q != p) {
+            if (q.next == null || q.next.next == null) {
+                return false;
+            }
+            p = p.next;
+            q = q.next.next;
+        }
+
+        return true;
+    }
+
+
     public static void main(String[] args) {
         Solution16 s16 = new Solution16();
 
