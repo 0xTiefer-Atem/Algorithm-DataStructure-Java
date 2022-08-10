@@ -222,7 +222,20 @@ public class Solution21 {
 
 
     // 538. 把二叉搜索树转换为累加树
-    public TreeNode convertBST(TreeNode root) {
+    int sum = 0;
 
+    public TreeNode convertBST(TreeNode root) {
+        traverse4(root);
+        return root;
+    }
+
+    private void traverse4(TreeNode root) {
+        if (root == null) {
+            return;
+        }
+        traverse4(root.right);
+        sum = sum + root.val;
+        root.val = sum;
+        traverse4(root.left);
     }
 }
