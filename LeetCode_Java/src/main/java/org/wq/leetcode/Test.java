@@ -1,11 +1,9 @@
 package org.wq.leetcode;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
+import java.util.concurrent.ThreadPoolExecutor;
 
-public class Test {
+public abstract class Test {
 
 
     /**
@@ -76,7 +74,7 @@ public class Test {
 
         int i = 0;
         for (String card : cards) {
-            if(i == 5) {
+            if (i == 5) {
                 break;
             }
             color.add(card.charAt(0) + "");
@@ -160,7 +158,7 @@ public class Test {
             }
         }
         for (int i = 1; i < nums.size(); i++) {
-            if (nums.get(i)  != (nums.get(i - 1) - 1)) {
+            if (nums.get(i) != (nums.get(i - 1) - 1)) {
                 return false;
             }
         }
@@ -170,14 +168,119 @@ public class Test {
 
 
     public static void main(String[] args) {
-        Test t = new Test();
 
-//        int[][] action = {{1, 1}, {2, 3}, {3, 5}, {5, 10}, {7, 9}, {8, 10}};
-//
-//        System.out.println(t.maxScore(10, action));
+        Scanner in = new Scanner(System.in);
+        String numStr = in.nextLine();
+        int b = in.nextInt();
+        int count = 0;
+        if (b > 9) {
+            count += numStr.length();
+        }
+        String bStr = String.valueOf(b);
 
-//        System.out.println(t.Decrypt(4296, 1601, 4757));
+        for (int i = 2; i <= bStr.length(); i++) {
+            for (int j = 0; j < numStr.length() - i; j++) {
+                if (Integer.parseInt(numStr.substring(j, j + i)) < b) {
+                    count++;
+                }
+            }
+        }
 
-        System.out.println(t.showDown("SA SK SQ SJ S10 H10 C9"));
+
+        System.out.println(count);
+    }
+
+    private static void f2() {
+        Scanner in = new Scanner(System.in);
+        int count = in.nextInt();
+        int opNum = in.nextInt();
+
+        int[] nums = new int[count];
+        for (int i = 0; i < nums.length; i++) {
+            nums[i] = in.nextInt();
+        }
+
+        int change = 1;
+        int search = 2;
+
+        for (int i = 0; i < opNum; i++) {
+            int op = in.nextInt();
+            int index = in.nextInt() - 1;
+            int x = in.nextInt();
+
+
+            if (change == op) {
+                if (index < 0 || index >= count) {
+                    continue;
+                }
+                nums[index] = x;
+            }
+
+            if (search == op) {
+                if (index < 0 || index >= count) {
+                    continue;
+                }
+                int sum = 0;
+                for (int j = 0; j < nums.length; j++) {
+                    if (nums[j] == x) {
+                        sum++;
+                    }
+                }
+                System.out.println(sum);
+            }
+        }
+    }
+
+
+    public void f1() {
+        Scanner in = new Scanner(System.in);
+        // 注意 hasNext 和 hasNextLine 的区别
+        int a = in.nextInt();
+        int b = in.nextInt();
+
+        int maxNum = Math.max(a, b);
+        for (int i = maxNum; i <= a * b; i++) {
+            if (i % a == 0 && i % b == 0) {
+                System.out.println(i);
+                break;
+            }
+        }
+    }
+
+    public int maxValue() {
+        Scanner in = new Scanner(System.in);
+        int a = in.nextInt();
+        int[] prices = new int[a];
+        for (int i = 0; i < prices.length; i++) {
+            prices[i] = in.nextInt();
+        }
+
+        int result = 0;
+        for (int i = 0; i < prices.length; i++) {
+            for (int j = i + 1; j < prices.length; j++) {
+
+            }
+        }
+
+        return 9;
+    }
+
+
+    public void bubbleSort(int[] arr) {
+        for (int i = 0; i < arr.length - 1; i++) {
+            if (i == 3) {
+                break;
+            }
+            for (int j = 0; j < arr.length - i - 1; j++) {
+                if (arr[j] > arr[j + 1]) {
+                    int temp = arr[j];
+                    arr[j] = arr[j + 1];
+                    arr[j + 1] = temp;
+                }
+
+            }
+        }
+
+        System.out.println(Arrays.toString(arr));
     }
 }

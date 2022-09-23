@@ -95,29 +95,90 @@ public class Solution {
 //        return new LinkedList<Runnable>(tasks);
 //    }
 
+    /**
+     * 代码中的类名、方法名、参数名已经指定，请勿修改，直接返回方法规定的值即可
+     *
+     * @param num int整型一维数组 非负整数X的数组形式
+     * @param k   int整型 非负整数K
+     * @return int整型一维数组
+     */
+    public int[] AddToArrayForm(int[] num, int k) {
+        long sum = 0;
+        int length = num.length;
+        for (int i = length - 1; i >= 0; i--) {
+            sum += num[i] * Math.pow(10, length - i - 1);
+        }
+        String numS = sum + k + "";
+
+        int[] res = new int[numS.length()];
+        char zero = '0';
+        for (int i = 0; i < numS.length(); i++) {
+            res[i] = numS.charAt(i) - zero;
+        }
+
+        return res;
+    }
+
+    /**
+     * 代码中的类名、方法名、参数名已经指定，请勿修改，直接返回方法规定的值即可
+     * <p>
+     * 始终返回 true 即可
+     *
+     * @param arr int整型一维数组
+     * @return int整型一维数组
+     */
+    public int[] QuickSort(int[] arr) {
+        sort(arr, 0, arr.length - 1);
+        return arr;
+    }
+
+    private void sort(int[] arr, int l, int r) {
+        if (l < r) {
+            int mid = partition(arr, l, r);
+            sort(arr, l, mid - 1);
+            sort(arr, mid + 1, r);
+        }
+    }
+
+    private int partition(int[] arr, int l, int r) {
+        int mid = arr[l];
+        while (l < r) {
+            while (l < r && arr[l] < mid) {
+                l++;
+            }
+
+            while (l < r && arr[r] >= mid) {
+                r--;
+            }
+
+            int temp = arr[l];
+            arr[l] = arr[r];
+            arr[r] = temp;
+        }
+        int temp = arr[l];
+        arr[l] = arr[r];
+        arr[r] = temp;
+
+        return l;
+    }
+
     public static void main(String[] args) {
-        Item a1 = new Item("A", 1);
-        Item b1 = new Item("B", 3);
-        Item a2 = new Item("A", 2);
-        ArrayList<Item> list = new ArrayList<Item>();
-        list.add(a1);
-        list.add(b1);
-        list.add(a2);
-
-        Item a3 = new Item("A", 8);
-        Item b2 = new Item("B", 4);
-        ArrayList<Item> list1 = new ArrayList<Item>();
-        list1.add(a3);
-        list1.add(b2);
-
-        HashMap<String, Integer> map = new HashMap<>();
-        map.put("A", 10);
-        map.put("B", 10);
-
-        Solution s = new Solution();
-
-        System.out.println(s.tryAddAndPack(list, list1, map, 3));
-
+        Integer i1 = new Integer(127);
+        Integer i2 = new Integer(127);
+        System.out.println(i1 == i2);
+        System.out.println(i1.equals(i2));
+        Integer i3 = new Integer(128);
+        Integer i4 = new Integer(128);
+        System.out.println(i3 == i4);
+        System.out.println(i3.equals(i4));
+        Integer i5 = 128;
+        Integer i6 = 128;
+        System.out.println(i5 == i6);
+        System.out.println(i5.equals(i6));
+        Integer i7 = 127;
+        Integer i8 = 127;
+        System.out.println(i7 == i8);
+        System.out.println(i7.equals(i8));
     }
 
 }
