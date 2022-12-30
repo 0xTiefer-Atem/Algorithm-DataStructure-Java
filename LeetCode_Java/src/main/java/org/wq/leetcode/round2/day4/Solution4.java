@@ -2,10 +2,7 @@ package org.wq.leetcode.round2.day4;
 
 import org.wq.leetcode.common.TreeNode;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
 
 public class Solution4 {
     // 121. 买卖股票的最佳时机
@@ -225,17 +222,148 @@ public class Solution4 {
         return false;
     }
 
-
-
+    private static final int flag = 1;
 
     public static void main(String[] args) {
-        Solution4 s = new Solution4();
+        goodStr();
+    }
 
-        List<String> words = new ArrayList<String>();
-        words.add("leet");
-        words.add("code");
-        System.out.println(s.wordBreak("leetcode", words));
+    /**
+     * 代码中的类名、方法名、参数名已经指定，请勿修改，直接返回方法规定的值即可
+     *
+     * @param s string字符串
+     * @param k int整型
+     * @return int整型
+     */
+    public int numKLenSubstrRepeats(String s, int k) {
+        Set<Character> charSet = new HashSet<>();
+        char[] charStr = s.toCharArray();
+
+        int count = 0;
+        for (int i = 0; i <= charStr.length - k; i++) {
+            charSet.add(charStr[i]);
+            for (int j = i + 1; j < i + k; j++) {
+                if (charSet.contains(charStr[j])) {
+                    count++;
+                }
+            }
+            charSet.clear();
+        }
+        return count;
     }
 
 
+    public static void jingdong() {
+        Scanner sc = new Scanner(System.in);
+        String a = sc.nextLine();
+
+        for (int i = 0; i < Integer.parseInt(a); i++) {
+            String str = sc.nextLine();
+            if ("JINGDONG".equals(str.toUpperCase(Locale.ROOT))) {
+                System.out.println("Yes");
+            } else {
+                System.out.println("No");
+            }
+        }
+    }
+
+
+    public static void goodStr() {
+
+        Scanner sc = new Scanner(System.in);
+
+        String redStr = sc.nextLine();
+
+        char[] redChar = redStr.toCharArray();
+
+        int[] dp = new int[redChar.length + 100];
+        Arrays.fill(dp, -1);
+        dp[0] = 1;
+
+
+        for (int i = 1; i < redChar.length; i++) {
+
+            if (Math.abs(redChar[i] - redChar[i - 1]) == 1) {
+                dp[i] = 1 + dp[i - 1];
+            } else {
+                dp[i + 1] = 1;
+                i = i + 1;
+            }
+        }
+
+        int count = 0;
+        int max = Integer.MIN_VALUE;
+        for(int i = 0; i < redChar.length; i++) {
+            if(dp[i] != -1) {
+                max = Math.max(max, dp[i]);
+            }else {
+                count += max;
+                max = Integer.MIN_VALUE;
+            }
+        }
+        System.out.println(count);
+
+    }
+
+
+    public static void redStr() {
+
+        Scanner sc = new Scanner(System.in);
+
+        String redStr = sc.nextLine();
+
+        char[] redChar = redStr.toCharArray();
+
+        HashMap<String, Integer> map = new HashMap<>();
+
+        for (char c : redChar) {
+            map.put(c + "", map.getOrDefault(c + "", 0) + 1);
+        }
+
+        int rNum = map.getOrDefault("r", 0);
+        int eNum = map.getOrDefault("e", 0);
+        int dNum = map.getOrDefault("d", 0);
+        int num = map.getOrDefault("?", 0);
+
+
+        int count = 0;
+        while (num > 0 && zeroCount(rNum, eNum, dNum) != 2) {
+            int min = Math.min(rNum, Math.min(eNum, dNum));
+            rNum = rNum - min;
+            eNum = eNum - min;
+            dNum = dNum - min;
+
+            if (rNum == 0) {
+                rNum++;
+                num--;
+                count++;
+            }
+            if (eNum == 0) {
+                eNum++;
+                num--;
+                count++;
+            }
+            if (dNum == 0) {
+                dNum++;
+                num--;
+                count++;
+            }
+        }
+        System.out.println(count);
+
+    }
+
+    private static int zeroCount(int rNum, int eNum, int dNum) {
+        int count = 0;
+        if (rNum == 0) {
+            count++;
+        }
+        if (eNum == 0) {
+            count++;
+        }
+        if (dNum == 0) {
+            count++;
+        }
+        return count;
+    }
 }

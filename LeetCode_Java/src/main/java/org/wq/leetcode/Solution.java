@@ -1,6 +1,13 @@
 package org.wq.leetcode;
 
 import java.util.*;
+import java.util.concurrent.ThreadPoolExecutor;
+
+
+class TripleNode {
+    public String val;
+    public TripleNode[] node = new TripleNode[3];
+}
 
 public class Solution {
 
@@ -162,23 +169,85 @@ public class Solution {
         return l;
     }
 
+    public static int sum;
+
     public static void main(String[] args) {
-        Integer i1 = new Integer(127);
-        Integer i2 = new Integer(127);
-        System.out.println(i1 == i2);
-        System.out.println(i1.equals(i2));
-        Integer i3 = new Integer(128);
-        Integer i4 = new Integer(128);
-        System.out.println(i3 == i4);
-        System.out.println(i3.equals(i4));
-        Integer i5 = 128;
-        Integer i6 = 128;
-        System.out.println(i5 == i6);
-        System.out.println(i5.equals(i6));
-        Integer i7 = 127;
-        Integer i8 = 127;
-        System.out.println(i7 == i8);
-        System.out.println(i7.equals(i8));
+//        Scanner sc = new Scanner(System.in);
+//        int length = sc.nextInt();
+//
+//        int[] nums = new int[length];
+//        for (int i = 0; i < nums.length; i++) {
+//            nums[i] = sc.nextInt();
+//        }
+//
+//        int p = Integer.MIN_VALUE;
+//        int res = 0;
+//
+//        for (int i = 0; i < nums.length; i++) {
+//            int temp = Math.max(res, p + nums[i]);
+//            p = res;
+//            res = temp;
+//        }
+//
+//        System.out.println(res);
+
+        func(17);
+        System.out.println(sum);
+
+    }
+
+    public static int func(int n) {
+        sum++;
+        if (n <= 2) {
+            return 1;
+        }
+        return func(n - 3) * func(n - 5);
+    }
+
+
+    public static void sumTree() {
+        Scanner in = new Scanner(System.in);
+        String str = in.nextLine();
+        String[] treeNode = str.trim().split(",");
+
+        TripleNode root = new TripleNode();
+
+        buildTree(root, treeNode, 0);
+
+        int res = sumTripTree(root, 1, 0);
+        System.out.println(res);
+    }
+
+    private static int sumTripTree(TripleNode root, int i, int sum) {
+        if (i % 2 != 0) {
+            if (root.val != null) {
+                sum += Integer.parseInt(root.val);
+            }
+
+        }
+
+        for (int j = 0; j < 3; j++) {
+            sum = sumTripTree(root.node[i], i + 1, sum);
+        }
+
+        return sum;
+    }
+
+    private static void buildTree(TripleNode root, String[] treeNode, int i) {
+
+        if (i >= treeNode.length) {
+            return;
+        }
+
+        if (root == null) {
+            root = new TripleNode();
+            root.val = treeNode[i];
+        }
+
+        for (int j = 0; j < 3; j++) {
+            buildTree(root.node[j], treeNode, i + j + 1);
+        }
+
     }
 
 }
